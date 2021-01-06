@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AdminLTE 3 | Registration Page (v2)</title>
-
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -18,7 +18,7 @@
 <div class="register-box">
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a class="h1">Cadastro</a>
+      <p class="h1">Cadastro</p>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Registrar nova empresa</p>
@@ -40,35 +40,42 @@
         <div class="input-group mb-3">
 
           <div class="col-md-4">
-            <input type="text" class="form-control" placeholder="CEP">
+            <input type="text" class="form-control" id='cep' placeholder="CEP">
           </div>
 
           <div class="col-md-3">
-            <button type="button" class="btn btn-block btn-outline-secondary">Pesquisar</button>
+            <button type="button" id='buscar' class="btn btn-block btn-outline-secondary">Pesquisar</button>
           </div>
 
         </div>
 
 
         <div class="input-group mb-3">
-          <div class="col-md-9">
-            <input type="text" class="form-control" placeholder="Logradouro">
+          <div class="col-md-12">
+            <input type="text" class="form-control" id='logradouro' placeholder="Logradouro">
           </div>
+        </div>
+
+        <div class="input-group mb-3">
           <div class="col-md-3">
             <input type="text" class="form-control" placeholder="Nº">
           </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control" placeholder="Complemento">
+          </div>
+          <div class="col-md-5">
+            <input type="text" class="form-control" id='cidade' placeholder="Cidade">
+          </div>
+          
         </div>
 
 
         <div class="input-group mb-3">
-          <div class="col-md-6">
-            <input type="text" class="form-control" placeholder="Bairro">
+          <div class="col-md-10">
+            <input type="text" class="form-control" id='bairro' placeholder="Bairro">
           </div>
           <div class="col-md-2">
-            <input type="text" class="form-control" placeholder="UF">
-          </div>
-          <div class="col-md-4">
-            <input type="text" class="form-control" placeholder="Complemento">
+            <input type="text" class="form-control" id='uf' placeholder="UF">
           </div>
         </div>
 
@@ -86,13 +93,13 @@
             <div class="icheck-primary">
               <input type="checkbox" id="agreeTerms" name="terms" value="agree">
               <label for="agreeTerms">
-               Eu confirmo que li e aceito os <a href="#">termos</a>
+               Confirmo que li e aceito os <a href="#">termos</a>
               </label>
             </div>
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Register</button>
+            <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
           </div>
           <!-- /.col -->
         </div>
@@ -119,4 +126,26 @@
 	$(document).ready(function(){	
 		$("#cnpj").mask("99.999.999/9999-99");
 	});
+  $('#buscar').click(function(e){
+    e.preventDefault()
+    cep = $('#cep').val()
+    $('#logradouro').val('').prop('disabled',false)
+    $('#bairro').val('').prop('disabled',false)
+    $('#uf').val('').prop('disabled',false)
+    $('#cidade').val('').prop('disabled',false)
+    $.ajax({  
+      url: "https://viacep.com.br/ws/"+cep+"/json/ ",
+      success: function(result){
+        console.log(result)
+        if (result.erro != true) {
+          $('#logradouro').val(result.logradouro).prop('disabled',true)
+          $('#bairro').val(result.bairro).prop('disabled',true)
+          $('#uf').val(result.uf).prop('disabled',true)
+          $('#cidade').val(result.localidade).prop('disabled',true)
+        } else {
+          swal("Endereco nao encontrado!", "Por favor, verifique se digitou corretamente.", "error");
+        }
+      }
+    });
+  })
 </script>
