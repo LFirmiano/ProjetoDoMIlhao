@@ -20626,7 +20626,7 @@ html.maximized-card {
 
 .login-box,
 .register-box {
-  width: 560px;
+  width: 660px;
 }
 
 @media (max-width: 576px) {
