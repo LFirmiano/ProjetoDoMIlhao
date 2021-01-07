@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AdminLTE 3 | Registration Page (v2)</title>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition register-page">
+<div class="register-box">
+  <div class="card card-outline card-primary">
+    <div class="card-header text-center">
+      <p class="h1">Cadastro</p>
+    </div>
+    <div class="card-body">
+
+      <p class="login-box-msg">Informações para Login</p>
+      
+      <div class="input-group mb-3">
+        <div class="col-md-8">
+          <input type="email" class="form-control" placeholder="Email">
+        </div>
+        <div class="col-md-4">
+          <input type="text" class="form-control" placeholder="Usuário">
+        </div>
+      </div>
+
+      <div class="input-group mb-3">
+        <div class="col-md-6">
+          <input type="password" class="form-control" placeholder="Digite sua senha">
+        </div>
+        <div class="col-md-6">
+          <input type="password" class="form-control" placeholder="Digite sua senha novamente">
+        </div>
+      </div>
+
+      <p class="login-box-msg">Informações da Empresa</p>
+
+      <form action="../../index.html" method="post">
+
+        <div class="input-group mb-3">
+
+          <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Razão Social">
+          </div>
+
+          <div class="col-md-6">
+            <input type="text" id="cnpj" name="cnpj" class="form-control" placeholder="CNPJ">
+          </div>
+
+        </div>
+
+        <p class="login-box-msg">Endereço</p>
+
+        <div class="input-group mb-3">
+
+          <div class="col-md-4">
+            <input type="text" class="form-control" id='cep' placeholder="CEP">
+          </div>
+
+          <div class="col-md-3">
+            <button type="button" id='buscar' class="btn btn-block btn-outline-secondary">Pesquisar</button>
+          </div>
+
+        </div>
+
+
+        <div class="input-group mb-3">
+          <div class="col-md-12">
+            <input type="text" class="form-control" id='logradouro' placeholder="Logradouro">
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="col-md-3">
+            <input type="text" class="form-control" placeholder="Nº">
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control" placeholder="Complemento">
+          </div>
+          <div class="col-md-5">
+            <input type="text" class="form-control" id='cidade' placeholder="Cidade">
+          </div>
+          
+        </div>
+
+
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input type="text" class="form-control" id='bairro' placeholder="Bairro">
+          </div>
+          <div class="col-md-2">
+            <input type="text" class="form-control" id='uf' placeholder="UF">
+          </div>
+        </div>
+
+        <p class="login-box-msg">Contato</p>
+
+        <div class="input-group mb-3">
+          <div class="col-md-2">
+            <input type="text" class="form-control" id='DDD' placeholder="DDD">
+          </div>
+          <div class="col-md-10">
+            <input type="text" class="form-control" id='telefone' placeholder="Telefone">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+              <label for="agreeTerms">
+               Confirmo que li e aceito os <a href="#">termos</a>
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+      <a href="login.html" class="text-center">Login</a>
+    </div>
+    <!-- /.form-box -->
+  </div><!-- /.card -->
+</div>
+<!-- /.register-box -->
+
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+</body>
+</html>
+
+<script type="text/javascript">
+	$(document).ready(function(){	
+		$("#cnpj").mask("99.999.999/9999-99");
+	});
+  $('#buscar').click(function(e){
+    e.preventDefault()
+    cep = $('#cep').val()
+    $('#logradouro').val('').prop('disabled',false)
+    $('#bairro').val('').prop('disabled',false)
+    $('#uf').val('').prop('disabled',false)
+    $('#cidade').val('').prop('disabled',false)
+    $.ajax({  
+      url: "https://viacep.com.br/ws/"+cep+"/json/ ",
+      success: function(result){
+        console.log(result)
+        if (result.erro != true) {
+          $('#logradouro').val(result.logradouro).prop('disabled',true)
+          $('#bairro').val(result.bairro).prop('disabled',true)
+          $('#uf').val(result.uf).prop('disabled',true)
+          $('#cidade').val(result.localidade).prop('disabled',true)
+        } else {
+          swal("Endereco nao encontrado!", "Por favor, verifique se digitou corretamente.", "error");
+        }
+      }
+    });
+  })
+</script>
