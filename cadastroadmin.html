@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AdminLTE 3 | Registration Page (v2)</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition register-page">
+<div class="register-box">
+  <div class="card card-outline card-primary">
+    <div class="card-header text-center">
+      <a class="h1">Cadastro</a>
+    </div>
+    <div class="card-body">
+      <p class="login-box-msg">Registrar novo admin</p>
+
+      <form action="../../index.html" method="post">
+
+        <div class="input-group mb-3">
+
+          <div class="col-md-6">
+            <input type="text" id="cpf" name="cpf" class="form-control" placeholder="CPF">
+          </div>
+
+        </div>
+
+        <div class="input-group mb-3">
+
+          <div class="col-md-4">
+            <input type="text" class="form-control" placeholder="CEP">
+          </div>
+
+          <div class="col-md-3">
+            <button type="button" class="btn btn-block btn-outline-secondary">Pesquisar</button>
+          </div>
+
+        </div>
+
+
+        <div class="input-group mb-3">
+          <div class="col-md-9">
+            <input type="text" class="form-control" placeholder="Logradouro">
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control" placeholder="Nº">
+          </div>
+        </div>
+
+
+        <div class="input-group mb-3">
+          <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Bairro">
+          </div>
+          <div class="col-md-2">
+            <input type="text" class="form-control" placeholder="UF">
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control" placeholder="Complemento">
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="col-md-6">
+            <input type="email" class="form-control" placeholder="Usuário">
+          </div>
+          <div class="col-md-6">
+            <input type="password" class="form-control" placeholder="Senha">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+              <label for="agreeTerms">
+               Eu confirmo que li e aceito os <a href="#">termos</a>
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+      <a href="login-v2.html" class="text-center">Login</a>
+    </div>
+    <!-- /.form-box -->
+  </div><!-- /.card -->
+</div>
+<!-- /.register-box -->
+
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+</body>
+</html>
+
+<script type="text/javascript">
+	$(document).ready(function(){	
+		$("#cpf").mask("999.999.999-99");
+	});
+</script>
