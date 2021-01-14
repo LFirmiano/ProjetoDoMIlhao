@@ -36,11 +36,11 @@
         <div class="input-group mb-3">
 
           <div class="col-md-4">
-            <input type="text" class="form-control" placeholder="CEP">
+            <input type="text" class="form-control" id='cep' placeholder="CEP">
           </div>
 
           <div class="col-md-3">
-            <button type="button" class="btn btn-block btn-outline-secondary">Pesquisar</button>
+            <button type="button" id='buscar' class="btn btn-block btn-outline-secondary">Pesquisar</button>
           </div>
 
         </div>
@@ -48,20 +48,20 @@
 
         <div class="input-group mb-3">
           <div class="col-md-9">
-            <input type="text" class="form-control" placeholder="Logradouro">
+            <input type="text" class="form-control" id='logradouro' placeholder="Logradouro">
           </div>
           <div class="col-md-3">
-            <input type="text" class="form-control" placeholder="Nº">
+            <input type="text" id='nº' class="form-control" placeholder="Nº">
           </div>
         </div>
 
 
         <div class="input-group mb-3">
           <div class="col-md-6">
-            <input type="text" class="form-control" placeholder="Bairro">
+            <input type="text" id=bairro class="form-control" placeholder="Bairro">
           </div>
           <div class="col-md-2">
-            <input type="text" class="form-control" placeholder="UF">
+            <input type="text" id='uf' class="form-control" placeholder="UF">
           </div>
           <div class="col-md-4">
             <input type="text" class="form-control" placeholder="Complemento">
@@ -113,6 +113,28 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){	
-		$("#cpf").mask("999.999.999-99");
+		$("#cnpj").mask("99.999.999/9999-99");
 	});
+  $('#buscar').click(function(e){
+    e.preventDefault()
+    cep = $('#cep').val()
+    $('#logradouro').val('').prop('disabled',false)
+    $('#bairro').val('').prop('disabled',false)
+    $('#uf').val('').prop('disabled',false)
+    $('#cidade').val('').prop('disabled',false)
+    $.ajax({  
+      url: "https://viacep.com.br/ws/"+cep+"/json/ ",
+      success: function(result){
+        console.log(result)
+        if (result.erro != true) {
+          $('#logradouro').val(result.logradouro).prop('disabled',true)
+          $('#bairro').val(result.bairro).prop('disabled',true)
+          $('#uf').val(result.uf).prop('disabled',true)
+          $('#cidade').val(result.localidade).prop('disabled',true)
+        } else {
+          swal("Endereco nao encontrado!", "Por favor, verifique se digitou corretamente.", "error");
+        }
+      }
+    });
+  })
 </script>
