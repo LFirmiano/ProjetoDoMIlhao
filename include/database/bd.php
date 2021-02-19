@@ -1,8 +1,8 @@
 <?php 
 $host = "localhost";
-$database = "pregao-producao-v01";
-$user = "associado_user";
-$password = "cabemce2014";
+$database = "pregao-admin";
+$user = "postgres";
+$password = "csc3590wxc2";
 
 // DEFINIR O DSN
 $dsn = "pgsql:host=$host;port=5432;dbname=$database;user=$user;password=$password";

@@ -21,14 +21,12 @@
       <a class="h1">Cadastro</a>
     </div>
     <div class="card-body">
+      <form action="include/controllers/Empresa/Usuario/add_usuario.php" method="post">
       <p class="login-box-msg">Registrar novo admin</p>
-
-      <form action="../../index.html" method="post">
-
         <div class="input-group mb-3">
 
           <div class="col-md-6">
-            <input type="text" id="cpf" name="cpf" class="form-control" placeholder="CPF">
+            <input type="text" id="cpf" name='cpf' class="form-control" placeholder="CPF">
           </div>
 
         </div>
@@ -36,7 +34,7 @@
         <div class="input-group mb-3">
 
           <div class="col-md-4">
-            <input type="text" class="form-control" id='cep' placeholder="CEP">
+            <input type="text" class="form-control" id='cep' name="cep" placeholder="CEP">
           </div>
 
           <div class="col-md-3">
@@ -48,32 +46,32 @@
 
         <div class="input-group mb-3">
           <div class="col-md-9">
-            <input type="text" class="form-control" id='logradouro' placeholder="Logradouro">
+            <input type="text" class="form-control" id='logradouro' name="logradouro" placeholder="Logradouro">
           </div>
           <div class="col-md-3">
-            <input type="text" id='nº' class="form-control" placeholder="Nº">
+            <input type="text" id='nº' name="numero" class="form-control" placeholder="Nº">
           </div>
         </div>
 
 
         <div class="input-group mb-3">
           <div class="col-md-6">
-            <input type="text" id=bairro class="form-control" placeholder="Bairro">
+            <input type="text" id=bairro class="form-control" name="bairro" placeholder="Bairro">
           </div>
           <div class="col-md-2">
-            <input type="text" id='uf' class="form-control" placeholder="UF">
+            <input type="text" id='uf' name="uf" class="form-control" placeholder="UF">
           </div>
           <div class="col-md-4">
-            <input type="text" class="form-control" placeholder="Complemento">
+            <input type="text" class="form-control" name="complemento" placeholder="Complemento">
           </div>
         </div>
 
         <div class="input-group mb-3">
           <div class="col-md-6">
-            <input type="email" class="form-control" placeholder="Usuário">
+            <input type="text" class="form-control" name="usuario" placeholder="Usuário">
           </div>
           <div class="col-md-6">
-            <input type="password" class="form-control" placeholder="Senha">
+            <input type="password" class="form-control" name="senha" placeholder="Senha">
           </div>
         </div>
 
@@ -119,19 +117,19 @@
   $('#buscar').click(function(e){
     e.preventDefault()
     cep = $('#cep').val()
-    $('#logradouro').val('').prop('disabled',false)
-    $('#bairro').val('').prop('disabled',false)
-    $('#uf').val('').prop('disabled',false)
-    $('#cidade').val('').prop('disabled',false)
+    $('#logradouro').val('').prop('readonly',false)
+    $('#bairro').val('').prop('readonly',false)
+    $('#uf').val('').prop('readonly',false)
+    $('#cidade').val('').prop('readonly',false)
     $.ajax({  
       url: "https://viacep.com.br/ws/"+cep+"/json/ ",
       success: function(result){
         console.log(result)
         if (result.erro != true) {
-          $('#logradouro').val(result.logradouro).prop('disabled',true)
-          $('#bairro').val(result.bairro).prop('disabled',true)
-          $('#uf').val(result.uf).prop('disabled',true)
-          $('#cidade').val(result.localidade).prop('disabled',true)
+          $('#logradouro').val(result.logradouro).prop('readonly',true)
+          $('#bairro').val(result.bairro).prop('readonly',true)
+          $('#uf').val(result.uf).prop('readonly',true)
+          $('#cidade').val(result.localidade).prop('readonly',true)
         } else {
           swal("Endereco nao encontrado!", "Por favor, verifique se digitou corretamente.", "error");
         }
