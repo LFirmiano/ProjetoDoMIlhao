@@ -22,20 +22,22 @@
     </div>
     <div class="card-body">
 
+      <form action="include/controllers/Empresa/add.php" method="post">
+
       <p class="login-box-msg">Informações para Login</p>
       
       <div class="input-group mb-3">
         <div class="col-md-8">
-          <input type="email" class="form-control" placeholder="Email">
+          <input type="email" class="form-control" placeholder="Email" name="email">
         </div>
         <div class="col-md-4">
-          <input type="text" class="form-control" placeholder="Usuário">
+          <input type="text" class="form-control" placeholder="Usuário" name="user">
         </div>
       </div>
 
       <div class="input-group mb-3">
         <div class="col-md-6">
-          <input type="password" class="form-control" placeholder="Digite sua senha">
+          <input type="password" class="form-control" placeholder="Digite sua senha" name="senha">
         </div>
         <div class="col-md-6">
           <input type="password" class="form-control" placeholder="Digite sua senha novamente">
@@ -44,12 +46,10 @@
 
       <p class="login-box-msg">Informações da Empresa</p>
 
-      <form action="../../index.html" method="post">
-
         <div class="input-group mb-3">
 
           <div class="col-md-6">
-            <input type="text" class="form-control" placeholder="Razão Social">
+            <input type="text" name="razaoSocial" class="form-control" placeholder="Razão Social">
           </div>
 
           <div class="col-md-6">
@@ -63,7 +63,7 @@
         <div class="input-group mb-3">
 
           <div class="col-md-4">
-            <input type="text" class="form-control" id='cep' placeholder="CEP">
+            <input type="text" class="form-control" id='cep' name="cep" placeholder="CEP">
           </div>
 
           <div class="col-md-3">
@@ -75,19 +75,19 @@
 
         <div class="input-group mb-3">
           <div class="col-md-12">
-            <input type="text" class="form-control" id='logradouro' placeholder="Logradouro">
+            <input type="text" class="form-control" id='logradouro' name='logradouro' placeholder="Logradouro">
           </div>
         </div>
 
         <div class="input-group mb-3">
           <div class="col-md-3">
-            <input type="text" class="form-control" placeholder="Nº">
+            <input type="text" class="form-control" placeholder="Nº"  name='numero'>
           </div>
           <div class="col-md-4">
-            <input type="text" class="form-control" placeholder="Complemento">
+            <input type="text" class="form-control" placeholder="Complemento"  name='complemento'>
           </div>
           <div class="col-md-5">
-            <input type="text" class="form-control" id='cidade' placeholder="Cidade">
+            <input type="text" class="form-control" id='cidade' name='cidade' placeholder="Cidade">
           </div>
           
         </div>
@@ -95,10 +95,10 @@
 
         <div class="input-group mb-3">
           <div class="col-md-10">
-            <input type="text" class="form-control" id='bairro' placeholder="Bairro">
+            <input type="text" class="form-control" id='bairro' name='bairro' placeholder="Bairro">
           </div>
           <div class="col-md-2">
-            <input type="text" class="form-control" id='uf' placeholder="UF">
+            <input type="text" class="form-control" id='uf' name='uf' placeholder="UF">
           </div>
         </div>
 
@@ -106,10 +106,10 @@
 
         <div class="input-group mb-3">
           <div class="col-md-2">
-            <input type="text" class="form-control" id='DDD' placeholder="DDD">
+            <input type="text" class="form-control" id='DDD' name='DDD' placeholder="DDD">
           </div>
           <div class="col-md-10">
-            <input type="text" class="form-control" id='telefone' placeholder="Telefone">
+            <input type="text" class="form-control" id='telefone' name='telefone' placeholder="Telefone">
           </div>
         </div>
 
@@ -128,6 +128,7 @@
           </div>
           <!-- /.col -->
         </div>
+
       </form>
 
       <a href="loginEmpresa.html" class="text-center">Login</a>
@@ -154,19 +155,19 @@
   $('#buscar').click(function(e){
     e.preventDefault()
     cep = $('#cep').val()
-    $('#logradouro').val('').prop('disabled',false)
-    $('#bairro').val('').prop('disabled',false)
-    $('#uf').val('').prop('disabled',false)
-    $('#cidade').val('').prop('disabled',false)
+    $('#logradouro').val('').prop('readonly',false)
+    $('#bairro').val('').prop('readonly',false)
+    $('#uf').val('').prop('readonly',false)
+    $('#cidade').val('').prop('readonly',false)
     $.ajax({  
       url: "https://viacep.com.br/ws/"+cep+"/json/ ",
       success: function(result){
         console.log(result)
         if (result.erro != true) {
-          $('#logradouro').val(result.logradouro).prop('disabled',true)
-          $('#bairro').val(result.bairro).prop('disabled',true)
-          $('#uf').val(result.uf).prop('disabled',true)
-          $('#cidade').val(result.localidade).prop('disabled',true)
+          $('#logradouro').val(result.logradouro).prop('readonly',true)
+          $('#bairro').val(result.bairro).prop('readonly',true)
+          $('#uf').val(result.uf).prop('readonly',true)
+          $('#cidade').val(result.localidade).prop('readonly',true)
         } else {
           swal("Endereco nao encontrado!", "Por favor, verifique se digitou corretamente.", "error");
         }
